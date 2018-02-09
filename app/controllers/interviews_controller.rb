@@ -1,5 +1,5 @@
 class InterviewsController < ApplicationController
-  before_action :get_interview, only: [:edit, :update, :destroy]
+  before_action :set_interview, only: [:edit, :update, :destroy]
 
   def index
     @interviews = current_user.interviews.order(start_time: :asc)
@@ -43,7 +43,7 @@ class InterviewsController < ApplicationController
     params.require(:interview).permit(:start_time).merge(user_id: params[:user_id])
   end
 
-  def get_interview
+  def set_interview
     @interview = Interview.find(params[:id])
   end
 end
