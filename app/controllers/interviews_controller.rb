@@ -11,7 +11,7 @@ class InterviewsController < ApplicationController
 
   def create
     @interview = Interview.new(interview_params)
-    if @interview.user_id == current_user.id && @interview.save
+    if @interview.save
       redirect_to user_interviews_path, notice: "面接日程を追加しました。"
     else
       render :new
@@ -22,7 +22,7 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    if  @interview.user_id == current_user.id && @interview.update(interview_params)
+    if @interview.update(interview_params)
       redirect_to user_interviews_path, notice: "面接日程を更新しました。"
     else
       render :edit
@@ -30,7 +30,7 @@ class InterviewsController < ApplicationController
   end
 
   def destroy
-    if  @interview.user_id == current_user.id && @interview.destroy
+    if @interview.destroy
       redirect_to user_interviews_path, notice: "面接日程を削除しました。"
     else
       render :index
