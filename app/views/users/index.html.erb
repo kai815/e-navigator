@@ -9,6 +9,7 @@
       <th>性別</th>
       <th>学校名</th>
       <th>面接日時</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -38,6 +39,13 @@
       <td>
         <div class="text-center">
           <%= user.school_name %>
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <% if user.approved_interiew %>
+            <%= user.approved_interiew.start_time.strftime("%Y年%m月%d日 %H時%M分") %>
+          <% end %>
         </div>
       </td>
       <td>
