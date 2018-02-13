@@ -13,13 +13,11 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
+    <% if user.id != current_user.id %>
       <tr>
       <td>
         <div class="text-center">
           <%= user.name %>
-          <% if user.id == current_user.id %>
-            (自分)
-          <% end %>
         </div>
       </td>
       <td>
@@ -44,10 +42,11 @@
       </td>
       <td>
         <div class="text-center">
-          未定
+          <%= link_to "面接日程一覧", user_interviews_path(user.id), class:"btn interview_date_btn" %>
         </div>
       </td>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
