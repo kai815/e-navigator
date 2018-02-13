@@ -36,7 +36,7 @@ class InterviewsController < ApplicationController
       @change_intervew.update(status: 2)
       if @interview.update(status: 1)
 
-        redirect_to user_interviews_path, notice: "面接日程を更新しました。"
+        redirect_to user_interviews_path, notice: "面接日程を確定しました。"
       else
         render :edit
       end
