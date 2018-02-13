@@ -1,0 +1,13 @@
+<h1><%= @user.name %>さんの面接候補日一覧</h1>
+  <h3>現在の面接日程</h3>
+  <% if @approved_interview.present? %>
+    <strong><%= @approved_interview.start_time.strftime("%Y年%m月%d日 %H時%M分") %></strong>に面接が設定されています。
+  <% else %>
+    まだ面接日程が設定されていません。
+  <% end %>
+  <hr>
+  面接日程を変更する場合は以下から選んでください。<br>
+  <% @other_user_inteviews.each do |interview| %>
+    <%= link_to "#{ interview.start_time.strftime("%Y年%m月%d日 %H時%M分")}", user_interview_path(@user,interview), class:"btn edit_btn", method: :patch %>
+    <br>
+  <% end %>
