@@ -13,8 +13,4 @@ class User < ApplicationRecord
       return ""
     end
   end
-
-  def approved_interiew
-    Interview.find_by(status:1, user_id: self.id)
-  end
 end
