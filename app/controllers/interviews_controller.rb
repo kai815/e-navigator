@@ -5,7 +5,7 @@ class InterviewsController < ApplicationController
   def index
     @other_user_inteviews = @user.interviews.order(start_time: :asc)
     @interviews = current_user.interviews.order(start_time: :asc)
-    @approved_interview = Interview.find_by(status: 1, user_id: @user.id)
+    @approved_interview = @user.interviews.approved[0]
   end
 
   def new
@@ -32,10 +32,9 @@ class InterviewsController < ApplicationController
         render :edit
       end
     else
-      @change_intervew = Interview.where(user_id: @user.id)
+      @change_intervew = @user.interviews
       @change_intervew.update(status: 2)
       if @interview.update(status: 1)
-
         redirect_to user_interviews_path, notice: "面接日程を確定しました。"
       else
         render :edit
