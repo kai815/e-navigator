@@ -43,8 +43,8 @@
       </td>
       <td>
         <div class="text-center">
-          <% if user.approved_interiew %>
-            <%= user.approved_interiew.start_time.strftime("%Y年%m月%d日 %H時%M分") %>
+          <% if user.interviews.approved.present? %>
+            <%= user.interviews.approved[0].start_time.strftime("%Y年%m月%d日 %H時%M分") %>
           <% end %>
         </div>
       </td>
