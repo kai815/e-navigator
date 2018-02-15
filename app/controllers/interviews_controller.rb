@@ -1,8 +1,11 @@
 class InterviewsController < ApplicationController
   before_action :set_interview, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:index, :update]
 
   def index
+    @other_user_inteviews = @user.interviews.order(start_time: :asc)
     @interviews = current_user.interviews.order(start_time: :asc)
+    @approved_interview = @user.interviews.approved[0]
   end
 
   def new
@@ -22,10 +25,20 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    if @interview.update(interview_params)
-      redirect_to user_interviews_path, notice: "面接日程を更新しました。"
+    if current_user.id == @user.id
+      if @interview.update(interview_params)
+        redirect_to user_interviews_path, notice: "面接日程を更新しました。"
+      else
+        render :edit
+      end
     else
-      render :edit
+      @change_intervew = @user.interviews
+      @change_intervew.update(status: 2)
+      if @interview.update(status: 1)
+        redirect_to user_interviews_path, notice: "面接日程を確定しました。"
+      else
+        render :edit
+      end
     end
   end
 
@@ -45,5 +58,9 @@ class InterviewsController < ApplicationController
 
   def set_interview
     @interview = Interview.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 end
